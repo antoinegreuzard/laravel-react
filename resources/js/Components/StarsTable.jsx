@@ -17,14 +17,6 @@ function StarManager() {
         fetchStars()
     }, [])
 
-    useEffect(() => {
-        return () => {
-            if (imagePreviewUrl) {
-                URL.revokeObjectURL(imagePreviewUrl)
-            }
-        }
-    }, [imagePreviewUrl])
-
     const fetchStars = async () => {
         try {
             const response = await axios.get('/api/stars')
@@ -36,15 +28,10 @@ function StarManager() {
 
     const handleFileUpload = event => {
         const file = event.target.files[0]
-        if (file) {
-            const newImagePreviewUrl = URL.createObjectURL(file)
-            setImagePreviewUrl(newImagePreviewUrl) // Mettre à jour l'URL de l'aperçu
-
-            if (showEditForm) {
-                setEditingStar({ ...editingStar, image: file })
-            } else {
-                setStarForm({ ...starForm, image: file })
-            }
+        if (showEditForm) {
+            setEditingStar({ ...editingStar, image: file })
+        } else {
+            setStarForm({ ...starForm, image: file })
         }
     }
 
@@ -220,8 +207,9 @@ function StarManager() {
                     />
                     {editingStar.image && (
                         <div className="mb-3">
+                            {/* Display image if exists */}
                             <img
-                                src={imagePreviewUrl}
+                                src={URL.createObjectURL(editingStar.image)}
                                 alt="Preview"
                                 className="w-32 h-auto rounded"
                             />
