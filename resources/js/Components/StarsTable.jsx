@@ -209,7 +209,7 @@ function StarManager() {
                         <div className="mb-3">
                             {/* Display image if exists */}
                             <img
-                                src={URL.createObjectURL(editingStar.image)}
+                                src={editingStar.image}
                                 alt="Preview"
                                 className="w-32 h-auto rounded"
                             />
