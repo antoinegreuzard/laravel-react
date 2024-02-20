@@ -26,14 +26,10 @@ function StarManager() {
         return escapeHtml(input)
     }
 
-    function validateUrl(url) {
+    function sanitizeUrl(url) {
         const pattern = /^(https?:\/\/)/i
-        return pattern.test(url)
-    }
-
-    const sanitizeUrl = url => {
-        if (validateUrl(url)) {
-            return url
+        if (pattern.test(url)) {
+            return encodeURI(url)
         }
         return 'about:blank'
     }
