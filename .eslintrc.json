@@ -26,5 +26,8 @@
     },
     "plugins": [
         "prettier"
-    ]
+    ],
+    "globals": {
+        "route": "readonly"
+    }
 }
