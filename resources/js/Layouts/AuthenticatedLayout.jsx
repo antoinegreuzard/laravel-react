@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
+import { useState } from 'react'
+import { Link } from '@inertiajs/react'
+import ApplicationLogo from '@/Components/ApplicationLogo'
+import Dropdown from '@/Components/Dropdown'
+import NavLink from '@/Components/NavLink'
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink'
 
 export default function Authenticated({ user, header, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false)
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -21,7 +21,10 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                <NavLink
+                                    href={route('dashboard')}
+                                    active={route().current('dashboard')}
+                                >
                                     Dashboard
                                 </NavLink>
                             </div>
@@ -55,8 +58,14 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
+                                        <Dropdown.Link href={route('profile.edit')}>
+                                            Profile
+                                        </Dropdown.Link>
+                                        <Dropdown.Link
+                                            href={route('logout')}
+                                            method="post"
+                                            as="button"
+                                        >
                                             Log Out
                                         </Dropdown.Link>
                                     </Dropdown.Content>
@@ -66,19 +75,30 @@ export default function Authenticated({ user, header, children }) {
 
                         <div className="-me-2 flex items-center sm:hidden">
                             <button
-                                onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
+                                onClick={() =>
+                                    setShowingNavigationDropdown(previousState => !previousState)
+                                }
                                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                             >
-                                <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                <svg
+                                    className="h-6 w-6"
+                                    stroke="currentColor"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
                                     <path
-                                        className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
+                                        className={
+                                            !showingNavigationDropdown ? 'inline-flex' : 'hidden'
+                                        }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
                                         d="M4 6h16M4 12h16M4 18h16"
                                     />
                                     <path
-                                        className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
+                                        className={
+                                            showingNavigationDropdown ? 'inline-flex' : 'hidden'
+                                        }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
@@ -90,9 +110,12 @@ export default function Authenticated({ user, header, children }) {
                     </div>
                 </div>
 
-                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
+                <div className={`${showingNavigationDropdown ? 'block' : 'hidden'} sm:hidden`}>
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                        <ResponsiveNavLink
+                            href={route('dashboard')}
+                            active={route().current('dashboard')}
+                        >
                             Dashboard
                         </ResponsiveNavLink>
                     </div>
@@ -104,7 +127,9 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('profile.edit')}>
+                                Profile
+                            </ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>
@@ -121,5 +146,5 @@ export default function Authenticated({ user, header, children }) {
 
             <main>{children}</main>
         </div>
-    );
+    )
 }

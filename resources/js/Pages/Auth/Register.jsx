@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { useEffect } from 'react'
+import { Head, Link, useForm } from '@inertiajs/react'
+import GuestLayout from '@/Layouts/GuestLayout'
+import InputError from '@/Components/InputError'
+import InputLabel from '@/Components/InputLabel'
+import PrimaryButton from '@/Components/PrimaryButton'
+import TextInput from '@/Components/TextInput'
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -12,19 +12,20 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
-    });
+    })
 
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
+    useEffect(
+        () => () => {
+            reset('password', 'password_confirmation')
+        },
+        []
+    )
 
-    const submit = (e) => {
-        e.preventDefault();
+    const submit = e => {
+        e.preventDefault()
 
-        post(route('register'));
-    };
+        post(route('register'))
+    }
 
     return (
         <GuestLayout>
@@ -40,8 +41,8 @@ export default function Register() {
                         value={data.name}
                         className="mt-1 block w-full"
                         autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
+                        isFocused
+                        onChange={e => setData('name', e.target.value)}
                         required
                     />
 
@@ -58,7 +59,7 @@ export default function Register() {
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
+                        onChange={e => setData('email', e.target.value)}
                         required
                     />
 
@@ -75,7 +76,7 @@ export default function Register() {
                         value={data.password}
                         className="mt-1 block w-full"
                         autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
+                        onChange={e => setData('password', e.target.value)}
                         required
                     />
 
@@ -92,7 +93,7 @@ export default function Register() {
                         value={data.password_confirmation}
                         className="mt-1 block w-full"
                         autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
+                        onChange={e => setData('password_confirmation', e.target.value)}
                         required
                     />
 
@@ -113,5 +114,5 @@ export default function Register() {
                 </div>
             </form>
         </GuestLayout>
-    );
+    )
 }

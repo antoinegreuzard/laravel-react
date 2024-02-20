@@ -1,4 +1,4 @@
-import { Link, Head } from '@inertiajs/react';
+import { Link, Head } from '@inertiajs/react'
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
@@ -75,9 +75,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                     </h2>
 
                                     <p className="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                        Laravel has wonderful documentation covering every aspect of the framework.
-                                        Whether you are a newcomer or have prior experience with Laravel, we recommend
-                                        reading our documentation from beginning to end.
+                                        Laravel has wonderful documentation covering every aspect of
+                                        the framework. Whether you are a newcomer or have prior
+                                        experience with Laravel, we recommend reading our
+                                        documentation from beginning to end.
                                     </p>
                                 </div>
 
@@ -121,9 +122,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                     </h2>
 
                                     <p className="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                        Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript
-                                        development. Check them out, see for yourself, and massively level up your
-                                        development skills in the process.
+                                        Laracasts offers thousands of video tutorials on Laravel,
+                                        PHP, and JavaScript development. Check them out, see for
+                                        yourself, and massively level up your development skills in
+                                        the process.
                                     </p>
                                 </div>
 
@@ -168,9 +170,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                     </h2>
 
                                     <p className="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                        Laravel News is a community driven portal and newsletter aggregating all of the
-                                        latest and most important news in the Laravel ecosystem, including new package
-                                        releases and tutorials.
+                                        Laravel News is a community driven portal and newsletter
+                                        aggregating all of the latest and most important news in the
+                                        Laravel ecosystem, including new package releases and
+                                        tutorials.
                                     </p>
                                 </div>
 
@@ -212,7 +215,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                     </h2>
 
                                     <p className="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                        Laravel's robust library of first-party tools and libraries, such as{' '}
+                                        Laravel's robust library of first-party tools and libraries,
+                                        such as{' '}
                                         <a
                                             href="https://forge.laravel.com"
                                             className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
@@ -240,8 +244,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                         >
                                             Envoyer
                                         </a>{' '}
-                                        help you take your projects to the next level. Pair them with powerful open
-                                        source libraries like{' '}
+                                        help you take your projects to the next level. Pair them
+                                        with powerful open source libraries like{' '}
                                         <a
                                             href="https://laravel.com/docs/billing"
                                             className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
@@ -300,7 +304,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 </div>
             </div>
 
-            <style>{`
+            <style>
+                {`
                 .bg-dots-darker {
                     background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E");
                 }
@@ -309,7 +314,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");
                     }
                 }
-            `}</style>
+            `}
+            </style>
         </>
-    );
+    )
 }
