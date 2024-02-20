@@ -1,4 +1,4 @@
-name: Lint and Format JavaScript/Vue
+name: Lint and Format JavaScript/React
 
 on: [push, pull_request]
 
