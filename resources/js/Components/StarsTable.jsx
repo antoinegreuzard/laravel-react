@@ -26,6 +26,18 @@ function StarManager() {
         return escapeHtml(input)
     }
 
+    function validateUrl(url) {
+        const pattern = /^(https?:\/\/)/i
+        return pattern.test(url)
+    }
+
+    const sanitizeUrl = url => {
+        if (validateUrl(url)) {
+            return url
+        }
+        return 'about:blank'
+    }
+
     const resetForm = () => {
         setStarForm({
             name: '',
@@ -233,7 +245,7 @@ function StarManager() {
                         <div className="mb-3">
                             {/* Display image if exists */}
                             <img
-                                src={editingStar.image}
+                                src={sanitizeUrl(editingStar.image)}
                                 alt="Preview"
                                 className="w-32 h-auto rounded"
                             />
