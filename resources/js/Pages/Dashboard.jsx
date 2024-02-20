@@ -1,7 +1,8 @@
 import { Head } from '@inertiajs/react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import StarsTable from '@/Components/StarsTable.jsx'
+import StarsTable from '@/Components/StarsTable'
 
+/* eslint-disable react/prop-types */
 export default function Dashboard({ auth }) {
     return (
         <AuthenticatedLayout

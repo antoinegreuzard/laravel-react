@@ -7,6 +7,7 @@ import InputLabel from '@/Components/InputLabel'
 import PrimaryButton from '@/Components/PrimaryButton'
 import TextInput from '@/Components/TextInput'
 
+/* eslint-disable react/prop-types */
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
@@ -72,6 +73,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="block mt-4">
+                    {/* eslint-disable jsx-a11y/label-has-associated-control */}
                     <label className="flex items-center">
                         <Checkbox
                             name="remember"

@@ -3,6 +3,7 @@ import GuestLayout from '@/Layouts/GuestLayout'
 import InputError from '@/Components/InputError'
 import PrimaryButton from '@/Components/PrimaryButton'
 import TextInput from '@/Components/TextInput'
+import PropTypes from 'prop-types'
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -52,4 +53,12 @@ export default function ForgotPassword({ status }) {
             </form>
         </GuestLayout>
     )
+}
+
+ForgotPassword.propTypes = {
+    status: PropTypes.string,
+}
+
+ForgotPassword.defaultProps = {
+    status: '',
 }

@@ -1,37 +1,44 @@
-import { useState, createContext, useContext, Fragment } from 'react'
+import { useState, createContext, useContext, Fragment, useMemo } from 'react'
 import { Link } from '@inertiajs/react'
 import { Transition } from '@headlessui/react'
+import PropTypes from 'prop-types'
 
 const DropDownContext = createContext()
 
 function Dropdown({ children }) {
     const [open, setOpen] = useState(false)
 
-    const toggleOpen = () => {
-        setOpen(previousState => !previousState)
-    }
+    const toggleOpen = () => setOpen(prev => !prev)
+
+    const contextValue = useMemo(() => ({ open, setOpen, toggleOpen }), [open])
 
     return (
-        <DropDownContext.Provider value={{ open, setOpen, toggleOpen }}>
+        <DropDownContext.Provider value={contextValue}>
             <div className="relative">{children}</div>
         </DropDownContext.Provider>
     )
 }
 
 function Trigger({ children }) {
-    const { open, setOpen, toggleOpen } = useContext(DropDownContext)
+    const { toggleOpen } = useContext(DropDownContext)
+
+    // Handling keyboard events, specifically "Enter" key
+    const handleKeyDown = event => {
+        if (event.key === 'Enter') {
+            toggleOpen()
+        }
+    }
 
     return (
-        <>
-            <div onClick={toggleOpen}>{children}</div>
-
-            {open && (
-                <div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setOpen(false)}
-                />
-            )}
-        </>
+        <div
+            role="button"
+            tabIndex={0}
+            onClick={toggleOpen}
+            onKeyDown={handleKeyDown} // Adding keyboard listener
+            className="cursor-pointer" // Adding cursor pointer for better UX
+        >
+            {children}
+        </div>
     )
 }
 
@@ -43,19 +50,12 @@ function Content({
 }) {
     const { open, setOpen } = useContext(DropDownContext)
 
-    let alignmentClasses = 'origin-top'
+    const alignmentClasses =
+        align === 'left'
+            ? 'ltr:origin-top-left rtl:origin-top-right start-0'
+            : 'ltr:origin-top-right rtl:origin-top-left end-0'
 
-    if (align === 'left') {
-        alignmentClasses = 'ltr:origin-top-left rtl:origin-top-right start-0'
-    } else if (align === 'right') {
-        alignmentClasses = 'ltr:origin-top-right rtl:origin-top-left end-0'
-    }
-
-    let widthClasses = ''
-
-    if (width === '48') {
-        widthClasses = 'w-48'
-    }
+    const widthClasses = width === '48' ? 'w-48' : ''
 
     return (
         <Transition
@@ -68,12 +68,25 @@ function Content({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
         >
+            {/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */}
             <div
+                role="dialog"
                 className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
-                onClick={() => setOpen(false)}
+                onKeyDown={event => {
+                    if (event.key === 'Enter' || event.key === 'Space') {
+                        setOpen(false)
+                    }
+                }}
+                onClick={event => {
+                    event.stopPropagation()
+                    setOpen(false)
+                }}
             >
+                {/* eslint-disable jsx-a11y/no-static-element-interactions */}
+                {/* eslint-disable jsx-a11y/click-events-have-key-events */}
                 <div
                     className={`rounded-md ring-1 ring-black ring-opacity-5 ${contentClasses}`}
+                    onClick={event => event.stopPropagation()}
                 >
                     {children}
                 </div>
@@ -91,6 +104,56 @@ function DropdownLink({ className = '', children, ...props }) {
             {children}
         </Link>
     )
+}
+
+Dropdown.propTypes = {
+    children: PropTypes.node,
+}
+Content.propTypes = {
+    children: PropTypes.node,
+    align: PropTypes.string,
+    width: PropTypes.string,
+    contentClasses: PropTypes.string,
+}
+DropdownLink.propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+}
+Trigger.propTypes = {
+    children: PropTypes.node,
+}
+
+Dropdown.defaultProps = {
+    children: null,
+}
+
+Content.defaultProps = {
+    align: 'right',
+    width: '48',
+    contentClasses: 'py-1 bg-white',
+    children: null,
+}
+
+DropdownLink.defaultProps = {
+    className: '',
+    children: null,
+}
+
+Trigger.defaultProps = {
+    children: null,
+}
+
+Content.propTypes = {
+    align: PropTypes.string,
+    width: PropTypes.string,
+    contentClasses: PropTypes.string,
+    children: PropTypes.node,
+}
+
+Content.defaultProps = {
+    align: 'right',
+    width: '48',
+    contentClasses: 'py-1 bg-white',
 }
 
 Dropdown.Trigger = Trigger

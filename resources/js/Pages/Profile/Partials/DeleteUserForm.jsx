@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel'
 import Modal from '@/Components/Modal'
 import SecondaryButton from '@/Components/SecondaryButton'
 import TextInput from '@/Components/TextInput'
+import PropTypes from 'prop-types'
 
 export default function DeleteUserForm({ className = '' }) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false)
@@ -26,6 +27,12 @@ export default function DeleteUserForm({ className = '' }) {
         setConfirmingUserDeletion(true)
     }
 
+    const closeModal = () => {
+        setConfirmingUserDeletion(false)
+
+        reset()
+    }
+
     const deleteUser = e => {
         e.preventDefault()
 
@@ -35,12 +42,6 @@ export default function DeleteUserForm({ className = '' }) {
             onError: () => passwordInput.current.focus(),
             onFinish: () => reset(),
         })
-    }
-
-    const closeModal = () => {
-        setConfirmingUserDeletion(false)
-
-        reset()
     }
 
     return (
@@ -113,4 +114,13 @@ export default function DeleteUserForm({ className = '' }) {
             </Modal>
         </section>
     )
+}
+
+DeleteUserForm.propTypes = {
+    className: PropTypes.string,
+}
+
+// Default props can also be defined for safety
+DeleteUserForm.defaultProps = {
+    className: '',
 }

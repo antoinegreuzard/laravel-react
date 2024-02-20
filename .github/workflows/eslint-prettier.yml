@@ -20,4 +20,4 @@ jobs:
       - name: Install NPM dependencies
         run: npm install
       - name: Run ESLint
-        run: npx eslint resources/ --ext .js,.vue
+        run: npx eslint resources/ --ext .js,.jsx

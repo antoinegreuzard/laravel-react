@@ -1,13 +1,8 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import PropTypes from 'prop-types'
 
-export default function Modal({
-    children,
-    show = false,
-    maxWidth = '2xl',
-    closeable = true,
-    onClose = () => {},
-}) {
+function Modal({ children, show, maxWidth, closeable, onClose }) {
     const close = () => {
         if (closeable) {
             onClose()
@@ -61,3 +56,20 @@ export default function Modal({
         </Transition>
     )
 }
+
+Modal.propTypes = {
+    children: PropTypes.node.isRequired,
+    show: PropTypes.bool,
+    maxWidth: PropTypes.oneOf(['sm', 'md', 'lg', 'xl', '2xl']),
+    closeable: PropTypes.bool,
+    onClose: PropTypes.func,
+}
+
+Modal.defaultProps = {
+    show: false,
+    maxWidth: '2xl',
+    closeable: true,
+    onClose: () => {},
+}
+
+export default Modal

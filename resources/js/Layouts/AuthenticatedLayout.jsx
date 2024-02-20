@@ -4,6 +4,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo'
 import Dropdown from '@/Components/Dropdown'
 import NavLink from '@/Components/NavLink'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink'
+import PropTypes from 'prop-types'
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -81,7 +82,9 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="-me-2 flex items-center sm:hidden">
+                            {/* eslint-disable jsx-a11y/control-has-associated-label */}
                             <button
+                                type="button"
                                 onClick={() =>
                                     setShowingNavigationDropdown(
                                         previousState => !previousState
@@ -172,4 +175,17 @@ export default function Authenticated({ user, header, children }) {
             <main>{children}</main>
         </div>
     )
+}
+
+Authenticated.propTypes = {
+    user: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+    }).isRequired,
+    header: PropTypes.node,
+    children: PropTypes.node.isRequired,
+}
+
+Authenticated.defaultProps = {
+    header: null,
 }

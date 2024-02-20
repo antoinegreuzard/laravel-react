@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
+import PropTypes from 'prop-types'
 import DeleteUserForm from './Partials/DeleteUserForm'
 import UpdatePasswordForm from './Partials/UpdatePasswordForm'
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm'
@@ -37,4 +38,20 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
             </div>
         </AuthenticatedLayout>
     )
+}
+
+Edit.propTypes = {
+    auth: PropTypes.shape({
+        user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            email: PropTypes.string.isRequired,
+        }).isRequired,
+    }).isRequired,
+    mustVerifyEmail: PropTypes.bool.isRequired,
+    status: PropTypes.string,
+}
+
+Edit.defaultProps = {
+    status: '',
 }

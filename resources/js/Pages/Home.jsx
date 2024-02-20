@@ -6,6 +6,7 @@ function StarProfileBrowser() {
     const { props } = usePage()
     const [stars, setStars] = useState([])
     const [activeStarIndex, setActiveStarIndex] = useState(0)
+    const [error, setError] = useState('')
 
     useEffect(() => {
         const fetchStars = async () => {
@@ -13,8 +14,8 @@ function StarProfileBrowser() {
                 const response = await axios.get('/api/stars')
                 setStars(response.data)
                 if (response.data.length > 0) setActiveStarIndex(0)
-            } catch (error) {
-                console.error('Error fetching stars:', error)
+            } catch (errorResponse) {
+                setError('Failed to fetch stars.')
             }
         }
 
@@ -38,6 +39,7 @@ function StarProfileBrowser() {
                             </Link>
                         </div>
                         <div className="flex items-center space-x-4">
+                            {/* eslint-disable react/prop-types */}
                             {props.auth.user ? (
                                 <Link
                                     href={route('dashboard')}
@@ -72,19 +74,27 @@ function StarProfileBrowser() {
                             <div className="sm:w-64 flex-shrink-0">
                                 <ul className="space-y-1">
                                     {stars.map((star, index) => (
-                                        <li
+                                        <button
+                                            type="button"
                                             key={star.id}
                                             onClick={() =>
                                                 setActiveStarIndex(index)
                                             }
-                                            className={`cursor-pointer p-2 hover:bg-gray-300 rounded-md ${
+                                            onKeyPress={event =>
+                                                event.key === 'Enter' &&
+                                                setActiveStarIndex(index)
+                                            }
+                                            className={`block w-full text-left cursor-pointer p-2 hover:bg-gray-300 rounded-md ${
                                                 index === activeStarIndex
                                                     ? 'bg-gray-500 text-white'
                                                     : ''
                                             }`}
+                                            aria-pressed={
+                                                index === activeStarIndex
+                                            }
                                         >
                                             {star.name}
-                                        </li>
+                                        </button>
                                     ))}
                                 </ul>
                             </div>
@@ -97,11 +107,14 @@ function StarProfileBrowser() {
                                         </h2>
                                         <img
                                             src={selectedStar.image}
-                                            alt="Star Image"
+                                            alt={`${selectedStar.name}'s profile`}
                                             className="w-full max-w-xs rounded-lg shadow-md"
                                         />
                                         <p>{selectedStar.description}</p>
                                     </div>
+                                )}
+                                {error && (
+                                    <p className="text-red-500">{error}</p>
                                 )}
                             </div>
                         </div>

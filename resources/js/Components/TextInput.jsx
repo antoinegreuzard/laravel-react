@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useRef } from 'react'
 
+/* eslint-disable react/prop-types */
 export default forwardRef(
     ({ type = 'text', className = '', isFocused = false, ...props }, ref) => {
         const input = ref || useRef()

@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react'
 import ApplicationLogo from '@/Components/ApplicationLogo'
+import PropTypes from 'prop-types'
 
 export default function Guest({ children }) {
     return (
@@ -15,4 +16,12 @@ export default function Guest({ children }) {
             </div>
         </div>
     )
+}
+
+Guest.propTypes = {
+    children: PropTypes.node,
+}
+
+Guest.defaultProps = {
+    children: null,
 }

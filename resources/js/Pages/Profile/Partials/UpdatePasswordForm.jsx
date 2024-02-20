@@ -5,6 +5,7 @@ import InputError from '@/Components/InputError'
 import InputLabel from '@/Components/InputLabel'
 import PrimaryButton from '@/Components/PrimaryButton'
 import TextInput from '@/Components/TextInput'
+import PropTypes from 'prop-types'
 
 export default function UpdatePasswordForm({ className = '' }) {
     const passwordInput = useRef()
@@ -30,13 +31,13 @@ export default function UpdatePasswordForm({ className = '' }) {
         put(route('password.update'), {
             preserveScroll: true,
             onSuccess: () => reset(),
-            onError: errors => {
-                if (errors.password) {
+            onError: errorResponse => {
+                if (errorResponse.password) {
                     reset('password', 'password_confirmation')
                     passwordInput.current.focus()
                 }
 
-                if (errors.current_password) {
+                if (errorResponse.current_password) {
                     reset('current_password')
                     currentPasswordInput.current.focus()
                 }
@@ -137,4 +138,13 @@ export default function UpdatePasswordForm({ className = '' }) {
             </form>
         </section>
     )
+}
+
+UpdatePasswordForm.propTypes = {
+    className: PropTypes.string,
+}
+
+// Default props can also be defined for safety
+UpdatePasswordForm.defaultProps = {
+    className: '',
 }

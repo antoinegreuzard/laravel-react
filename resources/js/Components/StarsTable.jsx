@@ -13,14 +13,36 @@ function StarManager() {
     })
     const [editingStar, setEditingStar] = useState(null)
 
-    useEffect(() => {
-        fetchStars()
-    }, [])
+    const sanitizeInput = input => {
+        return input
+            .replace(/<script.*?>.*?<\/script>/gi, '')
+            .replace(/javascript:/gi, '')
+    }
+
+    const resetForm = () => {
+        setStarForm({
+            name: '',
+            first_name: '',
+            image: null,
+            description: '',
+        })
+        setEditingStar(null)
+        setShowCreateForm(false)
+        setShowEditForm(false)
+    }
 
     const fetchStars = async () => {
         try {
             const response = await axios.get('/api/stars')
-            setStars(response.data)
+            setStars(
+                response.data.map(star => ({
+                    ...star,
+                    // Assurez-vous que les données venant du serveur sont sûres et nettoyées
+                    name: sanitizeInput(star.name),
+                    first_name: sanitizeInput(star.first_name),
+                    description: sanitizeInput(star.description),
+                }))
+            )
         } catch (error) {
             console.error('There was an error fetching the stars:', error)
         }
@@ -38,7 +60,7 @@ function StarManager() {
     const handleSubmitCreate = async () => {
         const formData = new FormData()
         Object.keys(starForm).forEach(key => {
-            formData.append(key, starForm[key])
+            formData.append(key, sanitizeInput(starForm[key]))
         })
 
         try {
@@ -60,7 +82,7 @@ function StarManager() {
 
         const formData = new FormData()
         Object.keys(editingStar).forEach(key => {
-            formData.append(key, editingStar[key])
+            formData.append(key, sanitizeInput(editingStar[key]))
         })
 
         try {
@@ -96,25 +118,18 @@ function StarManager() {
         }
     }
 
-    const resetForm = () => {
-        setStarForm({
-            name: '',
-            first_name: '',
-            image: null,
-            description: '',
-        })
-        setEditingStar(null)
-        setShowCreateForm(false)
-        setShowEditForm(false)
-    }
-
     const cancelEdit = () => {
         resetForm()
     }
 
+    useEffect(() => {
+        fetchStars()
+    }, [])
+
     return (
         <div className="p-6 bg-white rounded-lg shadow">
             <button
+                type="button"
                 onClick={() => setShowCreateForm(true)}
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition ease-in-out duration-150"
             >
@@ -163,12 +178,14 @@ function StarManager() {
                     />
                     <div className="flex justify-end space-x-2">
                         <button
+                            type="button"
                             onClick={handleSubmitCreate}
                             className="btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                         >
                             Create
                         </button>
                         <button
+                            type="button"
                             onClick={resetForm}
                             className="btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
                         >
@@ -233,12 +250,14 @@ function StarManager() {
                     />
                     <div className="flex justify-end space-x-2">
                         <button
+                            type="button"
                             onClick={handleSubmitEdit}
                             className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         >
                             Save
                         </button>
                         <button
+                            type="button"
                             onClick={cancelEdit}
                             className="btn bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
                         >
@@ -279,12 +298,14 @@ function StarManager() {
                                 </td>
                                 <td className="px-4 py-3">
                                     <button
+                                        type="button"
                                         onClick={() => prepareEditStar(star)}
                                         className="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                                     >
                                         Edit
                                     </button>
                                     <button
+                                        type="button"
                                         onClick={() =>
                                             handleDeleteStar(star.id)
                                         }

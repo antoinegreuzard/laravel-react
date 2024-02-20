@@ -1,5 +1,6 @@
 import { Link, useForm, usePage } from '@inertiajs/react'
 import { Transition } from '@headlessui/react'
+import PropTypes from 'prop-types'
 import InputError from '@/Components/InputError'
 import InputLabel from '@/Components/InputLabel'
 import PrimaryButton from '@/Components/PrimaryButton'
@@ -32,7 +33,8 @@ export default function UpdateProfileInformation({
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
+                    Update your account&apos;s profile information and email
+                    address.
                 </p>
             </header>
 
@@ -108,4 +110,16 @@ export default function UpdateProfileInformation({
             </form>
         </section>
     )
+}
+
+UpdateProfileInformation.propTypes = {
+    mustVerifyEmail: PropTypes.bool,
+    status: PropTypes.string,
+    className: PropTypes.string,
+}
+
+UpdateProfileInformation.defaultProps = {
+    mustVerifyEmail: true,
+    status: '',
+    className: '',
 }
