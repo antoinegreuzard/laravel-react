@@ -22,4 +22,4 @@ jobs:
       - name: Run ESLint
         run: npx eslint resources/ --ext .js,.jsx
       - name: Check code format with Prettier
-        run: npx prettier --check "resources/**/*.{js,vue}"
+        run: npx prettier --check "resources/**/*.{js,jsx}"
