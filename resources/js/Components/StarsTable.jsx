@@ -14,6 +14,10 @@ function StarManager() {
     const [editingStar, setEditingStar] = useState(null)
 
     const escapeHtml = unsafe => {
+        if (typeof unsafe !== 'string') {
+            return unsafe
+        }
+
         return unsafe
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
@@ -52,7 +56,6 @@ function StarManager() {
             setStars(
                 response.data.map(star => ({
                     ...star,
-                    // Assurez-vous que les données venant du serveur sont sûres et nettoyées
                     name: sanitizeInput(star.name),
                     first_name: sanitizeInput(star.first_name),
                     description: sanitizeInput(star.description),
@@ -75,12 +78,17 @@ function StarManager() {
     const handleSubmitCreate = async () => {
         const formData = new FormData()
         Object.keys(starForm).forEach(key => {
-            formData.append(key, sanitizeInput(starForm[key]))
+            if (key === 'image') {
+                formData.append(key, starForm[key])
+            } else {
+                formData.append(key, sanitizeInput(starForm[key]))
+            }
         })
 
         try {
             const response = await axios.post('/api/stars', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
+                withCredentials: true,
             })
             setStars([...stars, response.data])
             resetForm()
@@ -93,21 +101,30 @@ function StarManager() {
     }
 
     const handleSubmitEdit = async () => {
-        if (!editingStar) return
+        if (!editingStar || editingStar.id === undefined) return
 
         const formData = new FormData()
-        Object.keys(editingStar).forEach(key => {
-            formData.append(key, sanitizeInput(editingStar[key]))
-        })
+        formData.append('name', editingStar.name)
+        formData.append('first_name', editingStar.first_name)
+        formData.append('description', editingStar.description)
+
+        // Ajouter l'image seulement si elle a été modifiée.
+        if (editingStar.image instanceof File) {
+            formData.append('image', editingStar.image)
+        }
+
+        formData.append('_method', 'PUT')
 
         try {
-            const response = await axios.put(
+            const response = await axios.post(
                 `/api/stars/${editingStar.id}`,
                 formData,
                 {
                     headers: { 'Content-Type': 'multipart/form-data' },
+                    withCredentials: true,
                 }
             )
+
             setStars(
                 stars.map(star =>
                     star.id === editingStar.id ? response.data : star
@@ -178,7 +195,7 @@ function StarManager() {
                     <input
                         type="file"
                         onChange={handleFileUpload}
-                        className="input w-full mb-3 px-4 py-2 border rounded shadow-sm"
+                        className="input w-full mb-3 px-4 py-2 border rounded shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                     <textarea
                         value={starForm.description}
