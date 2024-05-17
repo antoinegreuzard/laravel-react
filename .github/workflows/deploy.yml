@@ -1,0 +1,74 @@
+name: Deploy to Plesk
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        working-directory: ./
+        run: npm install
+
+      - name: Build 
+        working-directory: ./
+        run: npm run build
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo, pdo_mysql
+
+      - name: Install Composer dependencies
+        working-directory: ./
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Run Laravel migrations
+        working-directory: ./
+        run: php artisan migrate --force
+
+      - name: Archive production artifacts
+        run: |
+          tar -czf production-artifacts.tar.gz backend public
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-artifacts
+          path: production-artifacts.tar.gz
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-artifacts
+
+      - name: Extract artifact
+        run: tar -xzf production-artifacts.tar.gz
+
+      - name: Deploy to Plesk
+        env:
+          PLESK_HOST: ${{ secrets.PLESK_HOST }}
+          PLESK_USERNAME: ${{ secrets.PLESK_USERNAME }}
+          PLESK_PASSWORD: ${{ secrets.PLESK_PASSWORD }}
+          PLESK_PATH: ${{ secrets.PLESK_PATH }}
+        run: |
+          echo "Deploying to Plesk..."
+          sshpass -p "$PLESK_PASSWORD" rsync -avz --delete ./ $PLESK_USERNAME@$PLESK_HOST:$PLESK_PATH/
