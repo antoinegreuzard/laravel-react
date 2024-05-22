@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 function StarManager() {
@@ -12,6 +12,7 @@ function StarManager() {
         description: '',
     })
     const [editingStar, setEditingStar] = useState(null)
+    const editFormRef = useRef(null)
 
     const escapeHtml = unsafe => {
         if (typeof unsafe !== 'string') {
@@ -139,6 +140,11 @@ function StarManager() {
     const prepareEditStar = star => {
         setEditingStar(star)
         setShowEditForm(true)
+        setTimeout(() => {
+            if (editFormRef.current) {
+                editFormRef.current.scrollIntoView({ behavior: 'smooth' })
+            }
+        }, 0)
     }
 
     const handleDeleteStar = async id => {
@@ -228,7 +234,10 @@ function StarManager() {
             )}
 
             {showEditForm && editingStar && (
-                <div className="mt-4 p-4 bg-gray-50 rounded-lg shadow-inner">
+                <div
+                    ref={editFormRef}
+                    className="mt-4 p-4 bg-gray-50 rounded-lg shadow-inner"
+                >
                     {/* Form inputs for editing */}
                     <input
                         type="text"
