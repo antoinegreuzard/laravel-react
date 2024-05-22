@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Star;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class StarController extends Controller
 {
@@ -80,6 +80,6 @@ class StarController extends Controller
     {
         $star->delete();
 
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+        return response()->json(null, ResponseAlias::HTTP_NO_CONTENT);
     }
 }
