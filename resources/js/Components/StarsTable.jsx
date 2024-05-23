@@ -149,7 +149,7 @@ function StarManager() {
 
     const handleDeleteStar = async id => {
         try {
-            await axios.post(`/api/stars/${id}`,{_method: 'delete'})
+            await axios.post(`/api/stars/${id}`, { _method: 'delete' })
             setStars(stars.filter(star => star.id !== id))
         } catch (error) {
             console.error('There was an error deleting the star:', error)
