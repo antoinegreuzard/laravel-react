@@ -57,6 +57,9 @@ jobs:
       - name: Run Migrations
         run: php artisan migrate --force
 
+      - name: Seed Database
+        run: php artisan db:seed --force
+
       - name: Run Tests
         run: php artisan test --stop-on-failure
 
