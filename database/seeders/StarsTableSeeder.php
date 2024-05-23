@@ -12,7 +12,7 @@ class StarsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         // Crée et insère 10 enregistrements dans la base de données
         Star::factory()->count(10)->create();
