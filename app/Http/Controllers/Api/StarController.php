@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Star;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class StarController extends Controller
@@ -33,7 +32,7 @@ class StarController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('stars', 'public');
-            $validated['image'] = Storage::disk('public')->url($path);
+            $validated['image'] = asset('storage/' . $path);
         }
 
         $star = Star::create($validated);
@@ -64,7 +63,7 @@ class StarController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('stars', 'public');
-            $validated['image'] = Storage::disk('public')->url($path);
+            $validated['image'] = asset('storage/' . $path);
         }
 
         $star->update($validated);
