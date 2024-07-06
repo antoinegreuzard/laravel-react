@@ -3262,16 +3262,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "11.0.3",
+            "version": "11.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "7e35a2cbcabac0e6865fd373742ea432a3c34f92"
+                "reference": "19b6365ab8b59a64438c0c3f4241feeb480c9861"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7e35a2cbcabac0e6865fd373742ea432a3c34f92",
-                "reference": "7e35a2cbcabac0e6865fd373742ea432a3c34f92",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/19b6365ab8b59a64438c0c3f4241feeb480c9861",
+                "reference": "19b6365ab8b59a64438c0c3f4241feeb480c9861",
                 "shasum": ""
             },
             "require": {
@@ -3328,7 +3328,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/11.0.3"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/11.0.5"
             },
             "funding": [
                 {
@@ -3336,7 +3336,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-12T15:35:40+00:00"
+            "time": "2024-07-03T05:05:37+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
