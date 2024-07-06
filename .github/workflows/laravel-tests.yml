@@ -40,8 +40,7 @@ jobs:
           php artisan config:cache
 
       - name: Create SQLite Database
-        run: |
-          touch /tmp/database.sqlite
+        run: touch /tmp/database.sqlite
 
       - name: Directory Permissions
         run: sudo chmod -R 777 storage bootstrap/cache
@@ -53,7 +52,7 @@ jobs:
         run: php artisan db:seed --force
 
       - name: Run Tests
-        run: php artisan test --stop-on-failure
+        run: vendor/bin/phpunit --stop-on-failure
 
     env:
       APP_ENV: testing
