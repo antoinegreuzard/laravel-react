@@ -1,4 +1,4 @@
-name: Lint and Format JavaScript/React
+name: Lint and Format JavaScript/Vue
 
 on: [push, pull_request]
 
@@ -20,6 +20,6 @@ jobs:
       - name: Install NPM dependencies
         run: npm install
       - name: Run ESLint
-        run: npx eslint resources/ --ext .js,.jsx
+        run: npx eslint resources/ --ext .js,.vue
       - name: Check code format with Prettier
-        run: npx prettier --check "resources/**/*.{js,jsx}"
+        run: npx prettier --check "resources/**/*.{js,vue}"
