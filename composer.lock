@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7378ba3f24f905f2b8f3025e75166d64",
+    "content-hash": "c74d8fab0e34b68cbb905ad62c565abf",
     "packages": [
         {
             "name": "brick/math",
@@ -1235,16 +1235,16 @@
         },
         {
             "name": "inertiajs/inertia-laravel",
-            "version": "v2.0.6",
+            "version": "v2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/inertiajs/inertia-laravel.git",
-                "reference": "6d0afc3237c370036de4a703927b17a4e7b83298"
+                "reference": "82931953935e0b9b9a7f9ab26e3a9d4603e02917"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/6d0afc3237c370036de4a703927b17a4e7b83298",
-                "reference": "6d0afc3237c370036de4a703927b17a4e7b83298",
+                "url": "https://api.github.com/repos/inertiajs/inertia-laravel/zipball/82931953935e0b9b9a7f9ab26e3a9d4603e02917",
+                "reference": "82931953935e0b9b9a7f9ab26e3a9d4603e02917",
                 "shasum": ""
             },
             "require": {
@@ -1299,9 +1299,9 @@
             ],
             "support": {
                 "issues": "https://github.com/inertiajs/inertia-laravel/issues",
-                "source": "https://github.com/inertiajs/inertia-laravel/tree/v2.0.6"
+                "source": "https://github.com/inertiajs/inertia-laravel/tree/v2.0.9"
             },
-            "time": "2025-08-26T06:17:48+00:00"
+            "time": "2025-09-26T17:20:38+00:00"
         },
         {
             "name": "laravel/breeze",
